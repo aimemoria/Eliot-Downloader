@@ -39,7 +39,7 @@ os.makedirs(STATIC_DIR, exist_ok=True)
 
 # --- Flask/Socket ---
 app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
-app.config['SECRET_KEY'] = 'your-secret-key-change-this-in-production'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', os.urandom(24).hex())
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 
@@ -146,7 +146,8 @@ def init_database():
     # Create default admin user if doesn't exist
     cursor.execute("SELECT * FROM users WHERE username = ?", ("admin@eliot",))
     if not cursor.fetchone():
-        admin_password_hash = generate_password_hash("0000")
+        default_admin_pw = os.environ.get('ADMIN_PASSWORD', 'changeme123')
+        admin_password_hash = generate_password_hash(default_admin_pw)
         cursor.execute('''
             INSERT INTO users (username, email, password_hash, is_admin)
             VALUES (?, ?, ?, ?)

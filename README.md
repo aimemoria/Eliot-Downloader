@@ -1,8 +1,8 @@
 # Eliot Downloader
 
-**Advanced Free Video, Audio, and Photo Downloader for All Sites**
+A comprehensive web-based media downloader built with Flask and yt-dlp. This is one of many programs I have programmed for practice to strengthen my skills in full-stack Python development, user authentication, and real-time web applications.
 
-Eliot Downloader is a comprehensive web-based application that allows users to download videos, extract audio, and save photos from over 1000+ platforms including YouTube, Instagram, TikTok, Facebook, Vimeo, Pinterest, and many more.
+Eliot Downloader allows users to download videos, extract audio, and save photos from over 1000+ platforms including YouTube, Instagram, TikTok, Facebook, Vimeo, Pinterest, and many more.
 
 ## Features
 
@@ -78,15 +78,15 @@ Open your web browser and navigate to: `http://127.0.0.1:5000`
 ```txt
 Flask==2.3.3
 Flask-SocketIO==5.3.6
-yt-dlp>=2024.12.13
 python-socketio==5.8.0
 Werkzeug==2.3.7
+yt-dlp>=2024.12.13
 ```
 
 ## Directory Structure
 
 ```
-ELIOT-DOWNLOADER/
+Eliot-Downloader/
 ├── main.py                     # Main application file
 ├── requirements.txt            # Python dependencies
 ├── README.md                   # This file
@@ -137,7 +137,8 @@ ELIOT-DOWNLOADER/
 
 **Default Admin Credentials:**
 - Username: `admin@eliot`
-- Password: `***********`
+- Password: Set via `ADMIN_PASSWORD` environment variable (defaults to `changeme123`)
+- Change the admin password immediately after first login
 
 **Admin Features:**
 1. **Dashboard**: System overview and statistics
@@ -164,8 +165,15 @@ PLATFORM_CONFIGS = {
 }
 ```
 
+### Environment Variables
+Set these for production deployment:
+```bash
+export SECRET_KEY="your-secure-random-key"
+export ADMIN_PASSWORD="your-secure-admin-password"
+```
+
 ### Security Settings
-- Change the Flask `SECRET_KEY` in production
+- Set `SECRET_KEY` and `ADMIN_PASSWORD` via environment variables
 - Update admin credentials on first login
 - Configure HTTPS in production environments
 - Set up proper firewall rules
@@ -281,7 +289,7 @@ The application uses SQLite by default. For production, consider:
 
 ## License
 
-This project is provided as-is for educational and personal use. Commercial use requires explicit permission.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Support
 
